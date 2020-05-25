@@ -34,6 +34,7 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
+            context.payload.commits.map(commit => console.log(commit))
             const commits_url = `https://api.github.com/repos/${context.repo.owner}/${context.repo.repo}/commits/${context.sha}`
             const result = await github.request(commits_url)
             result.data.files.map(file => console.log(file))
