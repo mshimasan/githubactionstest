@@ -9,15 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: GitHub Script
-      id: githubscript
+    - name: GitHub Script for pull request event
+      id: githubscript4pr
       uses: actions/github-script@v1.1.0
+      if: ${{ github.event_name == 'pull_request' }}
       with:
         script: |
             const diff_url = context.payload.pull_request.diff_url
             const result = await github.request(diff_url)
             console.log(result)
         github-token: ${{secrets.GITHUB_TOKEN}}
-        result-encoding: string
-    - name: Get result
-      run: echo "${{steps.githubscript.outputs.result}}"
+    - name: GitHub Script for push event
+      id: githubscript4push
+      uses: actions/github-script@v1.1.0
+      if: ${{ github.event_name == 'push' }}
+      with:
+        script: |
+            const diff_url = context.payload.push.diff_url
+            const result = await github.request(diff_url)
+            console.log(result)
+        github-token: ${{secrets.GITHUB_TOKEN}}
