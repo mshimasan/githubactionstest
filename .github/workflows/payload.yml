@@ -27,4 +27,6 @@ jobs:
         script: |
             const payload = context.payload
             console.log(payload)
+            const author = context.payload.commit.author
+            console.log(author)
         github-token: ${{secrets.GITHUB_TOKEN}}
