@@ -10,7 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: GitHub Script for pull request event
-      id: githubscript4pr
       uses: actions/github-script@v1.1.0
       if: ${{ github.event_name == 'pull_request' }}
       with:
@@ -20,13 +19,18 @@ jobs:
             console.log(result)
         github-token: ${{secrets.GITHUB_TOKEN}}
     - name: GitHub Script for push event
-      id: githubscript4push
       uses: actions/github-script@v1.1.0
       if: ${{ github.event_name == 'push' }}
       with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
             const payload = context.payload
             console.log(payload)
-            const author = context.payload.commits.author
-            console.log(author[0])
+    - name: Check commit author
+      uses: actions/github-script@v1.1.0
+      if: ${{ github.event_name == 'push' }}
+      with:
         github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+            const author = context.payload.commits.author
+            console.log(author)
