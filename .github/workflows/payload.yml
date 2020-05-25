@@ -27,19 +27,13 @@ jobs:
             console.log(context.actor)
             console.log(context.workflow)
             console.log(context.eventName)
+            console.log(context.payload)
     - name: Commits information
       uses: actions/github-script@v1.1.0
       if: ${{ github.event_name == 'push' }}
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-            const repository = context.payload.repository
-            const commits_url = repository.commits_url
-            const sha = context.sha
-            console.log(commits_url)
-            console.log(sha)
-            console.log(context.repo)
-    - name: Check commit author
-      if: github.event_name == 'push'
-      run: |
-        echo $GITHUB_EVENT_PATH
+            const commits_url = `https://api.github.com/repos/${context.repo.owner}/${context.repo.repo}/commits/${context.sha}`
+            const result = await github.request(commits_url)
+            console.log(result)
