@@ -1,0 +1,20 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: GitHub Script
+      id: githubscript
+      uses: actions/github-script@v1.1.0
+      with:
+        script: return "Hello!"
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        result-encoding: string
+    - name: Get result
+      run: echo "${{steps.githubscript.outputs.result}}"
