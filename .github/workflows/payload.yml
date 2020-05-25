@@ -28,4 +28,6 @@ jobs:
               return github.request(commits_url)
             })
           )
-          results.map(result => result.data.files.map(file => console.log(file.filename, file.status)))
+          results.map(result => {
+            result.data.files.map(file => console.log(file.filename, file.status))
+          })
