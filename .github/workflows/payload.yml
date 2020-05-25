@@ -2,7 +2,6 @@ name: test
 
 on:
   push:
-  pull_request:
 
 jobs:
   build:
@@ -10,7 +9,7 @@ jobs:
     steps:
     - name: GitHub Script for pull request event
       uses: actions/github-script@v1.1.0
-      if: ${{ github.event_name == 'pull_request' }}
+      if: github.event_name == 'pull_request'
       with:
         script: |
             const diff_url = context.payload.pull_request.diff_url
@@ -19,26 +18,27 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
     - name: GitHub Script for push event
       uses: actions/github-script@v1.1.0
-      if: ${{ github.event_name == 'push' }}
+      if: github.event_name == 'push'
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-            const payload = context
-            console.log(payload)
-    - name: Check commit author
+            console.log(context.sha)
+            console.log(context.ref)
+            console.log(context.actor)
+            console.log(context.workflow)
+            console.log(context.eventName)
+    - name: Commits information
       uses: actions/github-script@v1.1.0
       if: ${{ github.event_name == 'push' }}
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-            const commits = context.payload.commits
-            commits.map(commit => {
-              console.log(commit)
-              console.log(commit.id)
-              console.log(commit.message)
-              console.log(commit.url)
-            })
+            const commits_url = `${context.repository.commits_url}/${context.sha}`
+            const result = await github.request(commits_url)
+            console.log(result)
     - name: Check commit author
       if: github.event_name == 'push'
       run: |
-        echo ${{ github.event }}
+        echo github.event
+161553565975
+8150
