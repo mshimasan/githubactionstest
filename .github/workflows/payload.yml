@@ -20,7 +20,7 @@ jobs:
         script: |
           const owner = context.repo.owner
           const reponame = context.repo.repo
-          console.log(context.sha, commits_url)
+          console.log(context.sha)
           let results = await Promise.all(
             context.payload.commits.map(commit => {
               console.log(`commit_id:${commit.id}`)
