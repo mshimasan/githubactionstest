@@ -32,5 +32,5 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-            const author = context.payload.commits.author
-            console.log(author)
+            const commits = context.payload.commits
+            commits.map(commit => console.log(commit))
