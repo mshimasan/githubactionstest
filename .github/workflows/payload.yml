@@ -33,6 +33,9 @@ jobs:
         script: |
             const commits = context.payload.commits
             commits.map(commit => {
+              console.log(commit)
               console.log(commit.id)
               console.log(commit.message)
+              console.log(commit.url)
+              console.log(commit.sha)
             })
