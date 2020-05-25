@@ -21,11 +21,12 @@ jobs:
           const owner = context.repo.owner
           const reponame = context.repo.repo
           console.log(context.sha)
-          let results = await Promise.all(
+          await Promise.all(
             context.payload.commits.map(commit => {
               console.log(`commit_id:${commit.id}`)
               let commits_url = `https://api.github.com/repos/${owner}/${reponame}/commits/${commit.id}`
               return github.request(commits_url)
             })
-          )
-          console.log(results)
+          ).map(result => {
+            result.data.files.map(file => console.log(file.filename, file.status)
+          })
