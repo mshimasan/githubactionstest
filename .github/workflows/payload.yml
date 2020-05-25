@@ -25,6 +25,6 @@ jobs:
       if: ${{ github.event_name == 'push' }}
       with:
         script: |
-            const autor = context.payload.push.commits[].autor
+            const autor = context.payload.push
             console.log(autor)
         github-token: ${{secrets.GITHUB_TOKEN}}
