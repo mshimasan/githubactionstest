@@ -2,5 +2,5 @@ version: 2.1
 jobs:
   build:
     branches:
-      only: master
+      only:
         - master
