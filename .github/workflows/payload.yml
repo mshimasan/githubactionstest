@@ -35,13 +35,11 @@ jobs:
         script: |
             const commits_url = context.repository.commits_url
             const sha = context.sha
-            const api_url = `${commits_url}/${sha}`
-            var api_url_2 = `${commits_url}/${sha}`
-            console.log(api_url)
-            console.log(api_url_2)
-            const result = await github.request(api_url)
-            console.log(result)
+            console.log(commits_url)
+            #const result = await github.request(api_url)
+            #console.log(result)
     - name: Check commit author
       if: github.event_name == 'push'
       run: |
         echo github.event
+        echo JSON.parse(github)
