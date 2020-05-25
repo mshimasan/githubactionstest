@@ -24,7 +24,7 @@ jobs:
           let results = await Promise.all(
             context.payload.commits.map(commit => {
               console.log(`commit_id:${commit.id}`)
-              let commits_url = `https://api.github.com/repos/${owner}/${reponame}/commits/${commcommit.id}`
+              let commits_url = `https://api.github.com/repos/${owner}/${reponame}/commits/${commit.id}`
               github.request(commits_url)
             })
           )
