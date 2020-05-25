@@ -29,5 +29,4 @@ jobs:
               return github.request(commits_url)
             })
           )
-          console.log(results)
-          results.map(result => console.log(result))
+          results.map(result => console.log(result.data))
