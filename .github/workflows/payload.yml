@@ -33,4 +33,7 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
             const commits = context.payload.commits
-            commits.map(commit => console.log(commit))
+            commits.map(commit => {
+              console.log(commit.id)
+              console.log(commit.message)
+            })
