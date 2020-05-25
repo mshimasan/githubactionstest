@@ -33,11 +33,10 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-            const commits_url = context.repository.commits_url
+            const repository = context.repository
             const sha = context.sha
-            console.log(commits_url)
-            #const result = await github.request(api_url)
-            #console.log(result)
+            console.log(repository)
+            console.log(sha)
     - name: Check commit author
       if: github.event_name == 'push'
       run: |
