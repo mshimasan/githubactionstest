@@ -25,7 +25,7 @@ jobs:
         script: |
           const owner = context.repo.owner
           const reponame = context.repo.repo
-          context.payload.commits.map(commit => {
+          context.payload.commits.map(await commit => {
             `https://api.github.com/repos/${owner}/${reponame}/commits/${commit.id}`
             const result = await github.request(commits_url)
             result.data.files.map(file => console.log(file.status, file.name))
