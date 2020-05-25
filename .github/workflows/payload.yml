@@ -34,13 +34,12 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
             const repository = context.payload.repository
+            const commits_url = repository.commits_url
             const sha = context.sha
-            console.log(repository)
+            console.log(commits_url)
             console.log(sha)
             console.log(context.repo)
     - name: Check commit author
       if: github.event_name == 'push'
       run: |
-        PAYLOAD=${{ github }}
-        echo `$PAYLOAD`
-        echo `$PAYLOAD` | jq '.'
+        echo $GITHUB_EVENT_PATH
