@@ -30,3 +30,4 @@ jobs:
             })
           )
           console.log(results)
+          results.map(result => console.log(result))
