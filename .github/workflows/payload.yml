@@ -38,7 +38,8 @@ jobs:
             console.log(repository)
             console.log(sha)
     - name: Check commit author
-      if: github.event_name == 'push'
+      if: github.event_name == 'pull_request'
       run: |
-        echo github.event
-        echo ${{ github }}
+        PAYLOAD = ${{ github }}
+        echo `$PAYLOAD`
+        echo `$PAYLOAD` | jq '.'
