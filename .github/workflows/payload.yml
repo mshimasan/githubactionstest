@@ -27,6 +27,6 @@ jobs:
         script: |
             const payload = context.payload
             console.log(payload)
-            const author = context.payload.commit.author
-            console.log(author)
+            const author = context.payload.commits.author
+            console.log(author[0])
         github-token: ${{secrets.GITHUB_TOKEN}}
