@@ -41,6 +41,6 @@ jobs:
     - name: Check commit author
       if: github.event_name == 'push'
       run: |
-        PAYLOAD = ${{ github }}
+        PAYLOAD=${{ github }}
         echo `$PAYLOAD`
         echo `$PAYLOAD` | jq '.'
