@@ -16,9 +16,8 @@ jobs:
             const result = await github.request(diff_url)
             console.log(result)
         github-token: ${{secrets.GITHUB_TOKEN}}
-    - name: GitHub Script for push event
+    - name: Context Content List
       uses: actions/github-script@v1.1.0
-      if: github.event_name == 'push'
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
@@ -30,11 +29,13 @@ jobs:
             console.log(context.payload)
     - name: Commits information
       uses: actions/github-script@v1.1.0
-      if: ${{ github.event_name == 'push' }}
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-            context.payload.commits.map(commit => console.log(commit))
-            const commits_url = `https://api.github.com/repos/${context.repo.owner}/${context.repo.repo}/commits/${context.sha}`
+          const owner = context.repo.owner
+          const reponame = context.repo.repo
+          context.payload.commits.map(commit => {
+            `https://api.github.com/repos/${owner}/${reponame}/commits/${commit.id}`
             const result = await github.request(commits_url)
-            result.data.files.map(file => console.log(file))
+            result.data.files.map(file => console.log(file.status, file.name))
+          })
