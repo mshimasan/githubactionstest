@@ -25,7 +25,6 @@ jobs:
       if: ${{ github.event_name == 'push' }}
       with:
         script: |
-            const diff_url = context.payload.push.diff_url
-            const result = await github.request(diff_url)
-            console.log(result)
+            const autor = context.payload.push.commits[].autor
+            console.log(autor)
         github-token: ${{secrets.GITHUB_TOKEN}}
