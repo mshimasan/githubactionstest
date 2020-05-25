@@ -12,12 +12,7 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-            console.log(context.sha)
-            console.log(context.ref)
-            console.log(context.actor)
-            console.log(context.workflow)
-            console.log(context.eventName)
-            console.log(context.payload)
+          console.log(context)
     - name: Commits information
       uses: actions/github-script@v1.1.0
       with:
