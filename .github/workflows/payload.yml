@@ -7,15 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: GitHub Script for pull request event
-      uses: actions/github-script@v1.1.0
-      if: github.event_name == 'pull_request'
-      with:
-        script: |
-            const diff_url = context.payload.pull_request.diff_url
-            const result = await github.request(diff_url)
-            console.log(result)
-        github-token: ${{secrets.GITHUB_TOKEN}}
     - name: Context Content List
       uses: actions/github-script@v1.1.0
       with:
